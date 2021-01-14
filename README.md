@@ -11,3 +11,16 @@
 
 
 使用查看 Demo，有空再补文档
+
+
+#### ContentSize 计算方式
+``` swift
+// headerView?.height ?? 0
+// segmenter.y = header.height
+//
+// pager.view.y = segmenter.frame.maxY
+// pager.view.height = view.frame.height - segmenter.height - (statusBarHeight/navigationBarHeight or other top spacing) ?? 0
+//
+// scrollView.frame = view.bounds
+// scrollView.contentSize.height = view.frame.height + (headerView?.height ?? 0) - (statusBarHeight/navigationBarHeight or other top spacing) ?? 0
+```
