@@ -1,4 +1,6 @@
 import UIKit
+import Segmenter
+import Pager
 import SegmentedController
 
 public enum ScrollState: Int {
@@ -8,6 +10,11 @@ public enum ScrollState: Int {
 open class MultiScrollContainer: UIViewController {
     
     public var scrollView = MultiContainerScrollView()
+    
+    open var headerView: UIView? {
+        get { scrollView.headerView }
+        set { scrollView.headerView = newValue }
+    }
     
     /// rest cotnentInset, contentOffset to .zero after layout
     open var resetAfterLayout = true

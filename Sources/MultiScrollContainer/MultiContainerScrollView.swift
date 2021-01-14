@@ -17,6 +17,15 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     
     typealias MultiScrollView = UIScrollView & MultiScrollStateful
     
+    open var headerView: UIView? {
+        didSet {
+            headerView?.removeFromSuperview()
+            guard let view = headerView else { return }
+            view.sizeToFit()
+            addSubview(view)
+        }
+    }
+    
     /// if true, when did end drag will be auto scroll to top or define the position, default is true.
     open var snapbackEnabled = true
     

@@ -15,6 +15,11 @@ class ViewController: MultiScrollContainer, SegmentedControllerable {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        let v = UIView()
+        v.backgroundColor = .red
+        v.frame.size = .init(width: UIScreen.main.bounds.width, height: 300)
+        headerView = v
+        
         view.backgroundColor = .white
         
         func makeVC() -> TableViewController {
@@ -37,11 +42,12 @@ class ViewController: MultiScrollContainer, SegmentedControllerable {
         super.viewDidLayoutSubviews()
         
         //segmentedControllerableDidLayoutSubviews()
-        let topMargin: CGFloat = 300
-        segmenter.frame = .init(x: 0, y: topMargin, width: UIScreen.main.bounds.width, height: Segmenter.Height)
-        pager.view.frame = .init(x: 0, y: topMargin + Segmenter.Height, width: segmenter.frame.width, height: UIScreen.main.bounds.height - segmenter.frame.height)
-        scrollView.frame = UIScreen.main.bounds
-        scrollView.contentSize = .init(width: segmenter.frame.width, height: UIScreen.main.bounds.height + topMargin - 44)
+//        let headerViewHeight: CGFloat = 200
+//        headerView?.frame.size = .init(width: UIScreen.main.bounds.width, height: headerViewHeight)
+//        segmenter.frame = .init(x: 0, y: headerViewHeight, width: UIScreen.main.bounds.width, height: Segmenter.Height)
+//        pager.view.frame = .init(x: 0, y: headerViewHeight + Segmenter.Height, width: segmenter.frame.width, height: UIScreen.main.bounds.height - segmenter.frame.height - 44)
+//        scrollView.frame = UIScreen.main.bounds
+//        scrollView.contentSize = .init(width: segmenter.frame.width, height: UIScreen.main.bounds.height + headerViewHeight - 44)
     }
 }
 
