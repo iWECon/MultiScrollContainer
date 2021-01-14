@@ -7,4 +7,7 @@
 除此之外，不需要做任何事情～
 
 
+如果是 SegmentedController 作为潜入的视图，无需手动处理 ShadowControlable 的逻辑
+
+
 使用查看 Demo，有空再补文档

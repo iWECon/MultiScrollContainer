@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class MultiScrollTableView: UITableView, UIGestureRecognizerDelegate, MultiScrollStateful {
+open class MultiScrollTableView: UITableView, MultiScrollStateful {
     
     public var scrollState: ScrollState = .pending
     public var lastContentOffset: CGPoint = .zero

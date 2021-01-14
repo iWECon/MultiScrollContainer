@@ -41,7 +41,7 @@ class ViewController: MultiScrollContainer, SegmentedControllerable {
         segmenter.frame = .init(x: 0, y: topMargin, width: UIScreen.main.bounds.width, height: Segmenter.Height)
         pager.view.frame = .init(x: 0, y: topMargin + Segmenter.Height, width: segmenter.frame.width, height: UIScreen.main.bounds.height - segmenter.frame.height)
         scrollView.frame = UIScreen.main.bounds
-        scrollView.contentSize = .init(width: segmenter.frame.width, height: UIScreen.main.bounds.height + topMargin)
+        scrollView.contentSize = .init(width: segmenter.frame.width, height: UIScreen.main.bounds.height + topMargin - 44)
     }
 }
 

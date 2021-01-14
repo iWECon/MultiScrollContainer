@@ -13,4 +13,3 @@ open class MultiScrollCollectionView: UICollectionView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     
 }
-

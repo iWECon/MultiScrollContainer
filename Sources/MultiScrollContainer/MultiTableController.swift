@@ -13,6 +13,7 @@ open class MultiTableController: SegmentedTableController {
     convenience public init() {
         self.init(style: .plain)
     }
+    
     override public init(style: UITableView.Style) {
         super.init(style: style)
         commonInit()

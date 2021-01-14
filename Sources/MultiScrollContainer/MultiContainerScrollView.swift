@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SegmentedController
 
 public protocol MultiScrollStateful: class {
     var scrollState: ScrollState { get set }
@@ -106,6 +107,12 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
             scrollView.scrollState = .pending
             return
         }
+        
+        // control shadow if shadow controlable
+        if let segmentedController = (scrollView.next as? (UIViewController & SegmentedControllerShadowControlable))?.parent as? SegmentedController {
+            segmentedController.segmenter?.isShadowHidden = scrollView.contentOffset.y <= 1.0
+        }
+        
         if scrollView.contentOffset.y + scrollView.contentInset.top <= 1.0 {
             scrollView.scrollState = .pending
         } else {
