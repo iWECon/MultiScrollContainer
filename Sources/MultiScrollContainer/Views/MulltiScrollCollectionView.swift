@@ -7,16 +7,10 @@
 
 import UIKit
 
-open class MultiScrollCollectionView: UICollectionView, UIGestureRecognizerDelegate {
+open class MultiScrollCollectionView: UICollectionView, MultiScrollStateful {
     
-    open weak var panDelegate: UIGestureRecognizerDelegate?
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let result = panDelegate?.gestureRecognizer?(gestureRecognizer, shouldRecognizeSimultaneouslyWith: otherGestureRecognizer) {
-            return result
-        }
-        return false
-    }
+    public var scrollState: ScrollState = .pending
+    public var lastContentOffset: CGPoint = .zero
     
 }
 

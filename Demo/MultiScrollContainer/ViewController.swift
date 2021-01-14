@@ -10,23 +10,15 @@ import SegmentedController
 import Segmenter
 
 class ViewController: MultiScrollContainer, SegmentedControllerable {
-    
-    override var currentController: ScrollStateful? {
-        pager.currentViewController as? ScrollStateful
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        scrollView.addSubview(pager.view)
-        scrollView.addSubview(segmenter)
-        
         view.backgroundColor = .white
         
         func makeVC() -> TableViewController {
             let vc = TableViewController(style: .plain)
-            vc.multiScrollContainer = self
             return vc
         }
         

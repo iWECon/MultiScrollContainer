@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0871979D25AFF3A0007827DB /* MultiContainerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0871979C25AFF3A0007827DB /* MultiContainerScrollView.swift */; };
 		0876624325AF10F300FB311D /* MultiTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876624225AF10F300FB311D /* MultiTableController.swift */; };
-		0876625525AF1A2500FB311D /* Pager+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876625425AF1A2500FB311D /* Pager+.swift */; };
 		0876625C25AF2C4000FB311D /* MultiCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876625B25AF2C4000FB311D /* MultiCollectionController.swift */; };
 		08AFA7F525AEC8DA005A6FE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AFA7F425AEC8DA005A6FE6 /* AppDelegate.swift */; };
 		08AFA7F925AEC8DA005A6FE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AFA7F825AEC8DA005A6FE6 /* ViewController.swift */; };
@@ -23,8 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0871979C25AFF3A0007827DB /* MultiContainerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiContainerScrollView.swift; sourceTree = "<group>"; };
 		0876624225AF10F300FB311D /* MultiTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTableController.swift; sourceTree = "<group>"; };
-		0876625425AF1A2500FB311D /* Pager+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pager+.swift"; sourceTree = "<group>"; };
 		0876625B25AF2C4000FB311D /* MultiCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCollectionController.swift; sourceTree = "<group>"; };
 		08AFA7F125AEC8DA005A6FE6 /* MultiScrollContainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiScrollContainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08AFA7F425AEC8DA005A6FE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 				08AFA81025AEC900005A6FE6 /* MultiScrollContainer.swift */,
 				0876624225AF10F300FB311D /* MultiTableController.swift */,
 				0876625B25AF2C4000FB311D /* MultiCollectionController.swift */,
-				0876625425AF1A2500FB311D /* Pager+.swift */,
+				0871979C25AFF3A0007827DB /* MultiContainerScrollView.swift */,
 			);
 			path = MultiScrollContainer;
 			sourceTree = "<group>";
@@ -189,10 +189,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				08AFA7F925AEC8DA005A6FE6 /* ViewController.swift in Sources */,
-				0876625525AF1A2500FB311D /* Pager+.swift in Sources */,
 				08AFA7F525AEC8DA005A6FE6 /* AppDelegate.swift in Sources */,
 				0876625C25AF2C4000FB311D /* MultiCollectionController.swift in Sources */,
 				08AFA81125AEC900005A6FE6 /* MultiScrollContainer.swift in Sources */,
+				0871979D25AFF3A0007827DB /* MultiContainerScrollView.swift in Sources */,
 				08AFA82525AED641005A6FE6 /* MultiScrollTableView.swift in Sources */,
 				08AFA82825AED64A005A6FE6 /* MulltiScrollCollectionView.swift in Sources */,
 				0876624325AF10F300FB311D /* MultiTableController.swift in Sources */,

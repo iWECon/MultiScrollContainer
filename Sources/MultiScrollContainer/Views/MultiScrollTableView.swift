@@ -7,15 +7,9 @@
 
 import UIKit
 
-open class MultiScrollTableView: UITableView, UIGestureRecognizerDelegate {
+open class MultiScrollTableView: UITableView, UIGestureRecognizerDelegate, MultiScrollStateful {
     
-    open weak var panDelegate: UIGestureRecognizerDelegate?
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let result = panDelegate?.gestureRecognizer?(gestureRecognizer, shouldRecognizeSimultaneouslyWith: otherGestureRecognizer) {
-            return result
-        }
-        return false
-    }
+    public var scrollState: ScrollState = .pending
+    public var lastContentOffset: CGPoint = .zero
     
 }

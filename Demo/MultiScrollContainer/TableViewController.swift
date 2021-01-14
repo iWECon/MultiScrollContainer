@@ -45,9 +45,4 @@ class TableViewController: MultiTableController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
-    override     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let container = multiScrollContainer else { return false }
-        return container.scrollView.panGestureRecognizer == otherGestureRecognizer
-    }
 }
