@@ -43,6 +43,19 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     public var lastDirection: ScrollDirection = .pending
     
+    //lazy var delegateForwarder = DelegateForwarder(internalDelegate: self, externalDelegate: nil)
+    
+    lazy var delegater = MultiScrollViewDelegater(internal: self, external: nil)
+    
+    open override var delegate: UIScrollViewDelegate? {
+        get {
+            delegater.externalDelegate
+        }
+        set {
+            delegater.externalDelegate = newValue
+        }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -65,7 +78,7 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
             contentInsetAdjustmentBehavior = .never
         }
         bounces = false
-        delegate = self
+        delegate = delegater
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         panGestureRecognizer.cancelsTouchesInView = false
@@ -163,6 +176,9 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
             lastDirection = .down
         }
         lastContentOffset = scrollView.contentOffset
+        
+        guard delegater.externalDelegate?.responds(to: #selector(scrollViewDidScroll(_:))) == true else { return }
+        delegater.externalDelegate?.scrollViewDidScroll?(scrollView)
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -175,6 +191,9 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
                 targetContentOffset.assign(repeating: .zero, count: 1)
             }
         }
+        
+        guard delegater.externalDelegate?.responds(to: #selector(scrollViewWillEndDragging(_:withVelocity:targetContentOffset:))) == true else { return }
+        delegater.externalDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -188,6 +207,9 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
                 scrollView.setContentOffset(.zero, animated: true)
             }
         }
+        
+        guard delegater.externalDelegate?.responds(to: #selector(scrollViewDidEndDecelerating(_:))) == true else { return }
+        delegater.externalDelegate?.scrollViewDidEndDecelerating?(scrollView)
     }
 }
 
