@@ -118,7 +118,9 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
         }
         
         // control shadow if shadow controlable
-        if let segmentedController = (scrollView.next as? (UIViewController & SegmentedControllerShadowControlable))?.parent as? SegmentedController {
+        
+        // bugfix: cannot find segmentedController
+        if let segmentedController = (scrollView.next as? (UIViewController & SegmentedControllerShadowControlable))?.segmentedController {
             segmentedController.segmenter?.isShadowHidden = scrollView.contentOffset.y <= 1.0
         }
         
