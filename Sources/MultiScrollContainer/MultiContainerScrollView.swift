@@ -43,16 +43,14 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     public var lastDirection: ScrollDirection = .pending
     
-    //lazy var delegateForwarder = DelegateForwarder(internalDelegate: self, externalDelegate: nil)
-    
-    lazy var delegater = MultiScrollViewDelegater(internal: self, external: nil)
+    var outframeDelegate: UIScrollViewDelegate?
     
     open override var delegate: UIScrollViewDelegate? {
         get {
-            delegater.externalDelegate
+            self
         }
         set {
-            delegater.externalDelegate = newValue
+            outframeDelegate = newValue
         }
     }
     
@@ -78,7 +76,6 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
             contentInsetAdjustmentBehavior = .never
         }
         bounces = false
-        delegate = delegater
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         panGestureRecognizer.cancelsTouchesInView = false
@@ -177,8 +174,8 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
         }
         lastContentOffset = scrollView.contentOffset
         
-        guard delegater.externalDelegate?.responds(to: #selector(scrollViewDidScroll(_:))) == true else { return }
-        delegater.externalDelegate?.scrollViewDidScroll?(scrollView)
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidScroll(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidScroll?(scrollView)
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -192,8 +189,8 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
             }
         }
         
-        guard delegater.externalDelegate?.responds(to: #selector(scrollViewWillEndDragging(_:withVelocity:targetContentOffset:))) == true else { return }
-        delegater.externalDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+        guard outframeDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:))) == true else { return }
+        outframeDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -208,8 +205,65 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
             }
         }
         
-        guard delegater.externalDelegate?.responds(to: #selector(scrollViewDidEndDecelerating(_:))) == true else { return }
-        delegater.externalDelegate?.scrollViewDidEndDecelerating?(scrollView)
+        guard outframeDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidEndDecelerating?(scrollView)
+    }
+    
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidZoom(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidZoom?(scrollView)
+    }
+    
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewWillBeginDragging(_:))) == true else { return }
+        outframeDelegate?.scrollViewWillBeginDragging?(scrollView)
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidEndDragging(_:willDecelerate:))) == true else { return }
+        outframeDelegate?.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
+    }
+    
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewWillBeginDecelerating(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidEndDecelerating?(scrollView)
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidEndScrollingAnimation(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidEndScrollingAnimation?(scrollView)
+    }
+    
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        guard outframeDelegate?.responds(to: #selector(viewForZooming(in:))) == true else { return nil }
+        return outframeDelegate?.viewForZooming?(in: scrollView)
+    }
+    
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewWillBeginZooming(_:with:))) == true else { return }
+        outframeDelegate?.scrollViewWillBeginZooming?(scrollView, with: view)
+    }
+    
+    public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidEndZooming(_:with:atScale:))) == true else { return }
+        outframeDelegate?.scrollViewDidEndZooming?(scrollView, with: view, atScale: scale)
+    }
+    
+    public func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidEndDecelerating(_:))) == true else { return true }
+        return outframeDelegate?.scrollViewShouldScrollToTop?(scrollView) ?? true
+    }
+    
+    public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidScrollToTop(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidScrollToTop?(scrollView)
+    }
+    
+    @available(iOS 11.0, *)
+    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        guard outframeDelegate?.responds(to: #selector(scrollViewDidChangeAdjustedContentInset(_:))) == true else { return }
+        outframeDelegate?.scrollViewDidChangeAdjustedContentInset?(scrollView)
     }
 }
 

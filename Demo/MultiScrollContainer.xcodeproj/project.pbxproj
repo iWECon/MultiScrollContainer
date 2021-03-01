@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0827D2BF25E9053A005F4362 /* DelegateForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0827D2BE25E9053A005F4362 /* DelegateForwarder.swift */; };
 		0871979D25AFF3A0007827DB /* MultiContainerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0871979C25AFF3A0007827DB /* MultiContainerScrollView.swift */; };
 		0876624325AF10F300FB311D /* MultiTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876624225AF10F300FB311D /* MultiTableController.swift */; };
 		0876625C25AF2C4000FB311D /* MultiCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876625B25AF2C4000FB311D /* MultiCollectionController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0827D2BE25E9053A005F4362 /* DelegateForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateForwarder.swift; sourceTree = "<group>"; };
 		0871979C25AFF3A0007827DB /* MultiContainerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiContainerScrollView.swift; sourceTree = "<group>"; };
 		0876624225AF10F300FB311D /* MultiTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTableController.swift; sourceTree = "<group>"; };
 		0876625B25AF2C4000FB311D /* MultiCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCollectionController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		08AFA80F25AEC900005A6FE6 /* MultiScrollContainer */ = {
 			isa = PBXGroup;
 			children = (
+				0827D2BE25E9053A005F4362 /* DelegateForwarder.swift */,
 				0876625725AF1BE600FB311D /* Views */,
 				08AFA81025AEC900005A6FE6 /* MultiScrollContainer.swift */,
 				0876624225AF10F300FB311D /* MultiTableController.swift */,
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08AFA7F925AEC8DA005A6FE6 /* ViewController.swift in Sources */,
+				0827D2BF25E9053A005F4362 /* DelegateForwarder.swift in Sources */,
 				08AFA7F525AEC8DA005A6FE6 /* AppDelegate.swift in Sources */,
 				0876625C25AF2C4000FB311D /* MultiCollectionController.swift in Sources */,
 				08AFA81125AEC900005A6FE6 /* MultiScrollContainer.swift in Sources */,
