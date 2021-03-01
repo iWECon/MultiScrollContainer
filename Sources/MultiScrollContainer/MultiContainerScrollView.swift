@@ -139,7 +139,6 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         defer {
-            guard scrollDelegate?.responds(to: #selector(scrollViewDidScroll(_:))) == true else { return }
             scrollDelegate?.scrollViewDidScroll?(scrollView)
         }
         
@@ -175,7 +174,6 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         defer {
-            guard scrollDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:))) == true else { return }
             scrollDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         }
         
@@ -192,7 +190,6 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         defer {
-            guard scrollDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:))) == true else { return }
             scrollDelegate?.scrollViewDidEndDecelerating?(scrollView)
         }
         
