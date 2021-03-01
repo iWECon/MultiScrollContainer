@@ -43,7 +43,14 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     public var lastDirection: ScrollDirection = .pending
     
-    var scrollDelegate: UIScrollViewDelegate?
+    public var scrollDelegate: UIScrollViewDelegate?
+    
+    /// do not use `delegate`, use `var scrollDelegate: UIScrollViewDelegate?`
+    /// 不要使用 delegate, 使用 scrollDelegate 替代
+    open override var delegate: UIScrollViewDelegate? {
+        get { self }
+        set { super.delegate = self }
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
