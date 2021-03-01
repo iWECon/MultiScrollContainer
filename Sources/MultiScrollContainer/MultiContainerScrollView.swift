@@ -49,7 +49,7 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     /// 不要使用 delegate, 使用 scrollDelegate 替代
     open override var delegate: UIScrollViewDelegate? {
         get { self }
-        set { super.delegate = self }
+        set { super.delegate = newValue }
     }
     
     public override init(frame: CGRect) {
