@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name = 'MultiScrollContainer'
-    s.version = '1.0.8'
+    s.version = '1.0.9'
     s.license = { :type => 'MIT' }
     s.homepage = 'https://github.com/iWECon/MultiScrollContainer'
     s.authors = 'Pansitong iWw'
