@@ -43,13 +43,15 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     public var lastDirection: ScrollDirection = .pending
     
-    public var scrollDelegate: UIScrollViewDelegate?
+    private lazy var delegater: MultiScrollViewDelegater? = { [weak self] in
+        let dter = MultiScrollViewDelegater()
+        dter.internalDelegate = self
+        return dter
+    }()
     
-    /// do not use `delegate`, use `var scrollDelegate: UIScrollViewDelegate?`
-    /// 不要使用 delegate, 使用 scrollDelegate 替代
     open override var delegate: UIScrollViewDelegate? {
-        get { self }
-        set { super.delegate = newValue }
+        get { delegater }
+        set { delegater?.externalDelegate = newValue }
     }
     
     public override init(frame: CGRect) {
@@ -86,6 +88,9 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     deinit {
         self.clearObservedViews()
         self.removeObserver(self, forKeyPath: Self.observerKeyPath, context: &observerContext)
+        
+        delegater?.cleanup()
+        delegater = nil
     }
     
     private func addObserver(scrollView: MultiScrollView) {
@@ -156,7 +161,7 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         defer {
-            scrollDelegate?.scrollViewDidScroll?(scrollView)
+            delegater?.externalDelegate?.scrollViewDidScroll?(scrollView)
         }
         
         var forceInnerToScroll = false
@@ -191,7 +196,7 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         defer {
-            scrollDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+            delegater?.externalDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         }
         
         guard snapbackEnabled == true else { return }
@@ -207,7 +212,7 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         defer {
-            scrollDelegate?.scrollViewDidEndDecelerating?(scrollView)
+            delegater?.externalDelegate?.scrollViewDidEndDecelerating?(scrollView)
         }
         
         guard snapbackEnabled == true else { return }
@@ -220,63 +225,6 @@ extension MultiContainerScrollView: UIScrollViewDelegate {
                 scrollView.setContentOffset(.zero, animated: true)
             }
         }
-    }
-    
-    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidZoom(_:))) == true else { return }
-        scrollDelegate?.scrollViewDidZoom?(scrollView)
-    }
-    
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewWillBeginDragging(_:))) == true else { return }
-        scrollDelegate?.scrollViewWillBeginDragging?(scrollView)
-    }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidEndDragging(_:willDecelerate:))) == true else { return }
-        scrollDelegate?.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
-    }
-    
-    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewWillBeginDecelerating(_:))) == true else { return }
-        scrollDelegate?.scrollViewDidEndDecelerating?(scrollView)
-    }
-    
-    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidEndScrollingAnimation(_:))) == true else { return }
-        scrollDelegate?.scrollViewDidEndScrollingAnimation?(scrollView)
-    }
-    
-    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        guard scrollDelegate?.responds(to: #selector(viewForZooming(in:))) == true else { return nil }
-        return scrollDelegate?.viewForZooming?(in: scrollView)
-    }
-    
-    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewWillBeginZooming(_:with:))) == true else { return }
-        scrollDelegate?.scrollViewWillBeginZooming?(scrollView, with: view)
-    }
-    
-    public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidEndZooming(_:with:atScale:))) == true else { return }
-        scrollDelegate?.scrollViewDidEndZooming?(scrollView, with: view, atScale: scale)
-    }
-    
-    public func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidEndDecelerating(_:))) == true else { return true }
-        return scrollDelegate?.scrollViewShouldScrollToTop?(scrollView) ?? true
-    }
-    
-    public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidScrollToTop(_:))) == true else { return }
-        scrollDelegate?.scrollViewDidScrollToTop?(scrollView)
-    }
-    
-    @available(iOS 11.0, *)
-    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        guard scrollDelegate?.responds(to: #selector(scrollViewDidChangeAdjustedContentInset(_:))) == true else { return }
-        scrollDelegate?.scrollViewDidChangeAdjustedContentInset?(scrollView)
     }
 }
 
