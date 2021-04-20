@@ -26,6 +26,7 @@ class ViewController: MultiScrollContainer, SegmentedControllerable {
             return vc
         }
         
+        scrollView.delegate = self
         pages = [
             .init(title: "今天", controller: makeVC()),
             .init(title: "明天", controller: makeVC()),
@@ -60,3 +61,10 @@ class ViewController: MultiScrollContainer, SegmentedControllerable {
     }
 }
 
+
+extension ViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("\(Date().timeIntervalSince1970): did scroll view")
+    }
+}

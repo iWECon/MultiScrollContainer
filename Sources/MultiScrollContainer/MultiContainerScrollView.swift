@@ -43,15 +43,20 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     public var lastContentOffset: CGPoint = .zero
     public var lastDirection: ScrollDirection = .pending
     
-    private lazy var delegater: MultiScrollViewDelegater? = { [weak self] in
-        let dter = MultiScrollViewDelegater()
-        dter.internalDelegate = self
-        return dter
-    }()
+    private var delegater: MultiScrollViewDelegater? = MultiScrollViewDelegater()
     
     open override var delegate: UIScrollViewDelegate? {
         get { delegater }
-        set { delegater?.externalDelegate = newValue }
+        set {
+            // 不知道是不是苹果的问题，反正出了问题就丢给苹果
+            // 这里如果不设置 super.delegate， delegate 设置之后就没有任何响应
+            super.delegate = delegater
+            
+            guard (newValue as? MultiScrollViewDelegater) == nil else {
+                return
+            }
+            delegater?.externalDelegate = newValue
+        }
     }
     
     public override init(frame: CGRect) {
@@ -70,13 +75,15 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     private weak var observedScrollView: MultiScrollView?
     
     open func commonInit() {
+        delegater?.internalDelegate = self
+        delegate = delegater
+        
         clipsToBounds = false
         scrollsToTop = false
         if #available(iOS 11.0, *) {
             contentInsetAdjustmentBehavior = .never
         }
         bounces = false
-        delegate = self
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         panGestureRecognizer.cancelsTouchesInView = false

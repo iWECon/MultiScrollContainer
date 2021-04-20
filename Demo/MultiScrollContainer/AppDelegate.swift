@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window = UIWindow(frame: UIScreen.main.bounds)
 //        let tabbar = UITabBarController()
 //        tabbar.viewControllers = [ViewController()]
-        window?.rootViewController = ViewController()
+//        window?.rootViewController = ViewController()
         
         return true
     }

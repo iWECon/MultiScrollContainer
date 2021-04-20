@@ -39,5 +39,4 @@ class MultiScrollViewDelegater: NSObject, UIScrollViewDelegate {
         }
         return nil
     }
-    
 }
