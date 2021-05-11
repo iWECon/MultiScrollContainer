@@ -41,9 +41,13 @@ open class MultiScrollContainer: UIViewController {
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        let oldOffset = scrollView.contentOffset
         scrollView.frame = view.bounds
         
-        guard resetAfterLayout else { return }
+        guard resetAfterLayout else {
+            scrollView.contentOffset = oldOffset
+            return
+        }
         scrollView.contentInset = .zero
         scrollView.contentOffset = .zero
     }
