@@ -46,12 +46,11 @@ open class MultiContainerScrollView: UIScrollView, MultiScrollStateful {
     private var delegater: MultiScrollViewDelegater? = MultiScrollViewDelegater()
     
     open override var delegate: UIScrollViewDelegate? {
-        get { delegater }
+        get { super.delegate }
         set {
-            // 不知道是不是苹果的问题，反正出了问题就丢给苹果
-            // 这里如果不设置 super.delegate， delegate 设置之后就没有任何响应
-            super.delegate = delegater
-            
+            defer {
+                super.delegate = delegater
+            }
             guard (newValue as? MultiScrollViewDelegater) == nil else {
                 return
             }
