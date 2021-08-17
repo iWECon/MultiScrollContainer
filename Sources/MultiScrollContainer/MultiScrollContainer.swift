@@ -11,6 +11,8 @@ open class MultiScrollContainer: UIViewController {
     
     public var scrollView = MultiContainerScrollView()
     
+    private var oldOffset: CGPoint = .zero
+    
     open var headerView: UIView? {
         get { scrollView.headerView }
         set { scrollView.headerView = newValue }
@@ -23,6 +25,12 @@ open class MultiScrollContainer: UIViewController {
     open var snapbackEnabled: Bool {
         get { scrollView.snapbackEnabled }
         set { scrollView.snapbackEnabled = newValue }
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.oldOffset = scrollView.contentOffset
     }
     
     open override func viewDidLoad() {
@@ -41,11 +49,10 @@ open class MultiScrollContainer: UIViewController {
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let oldOffset = scrollView.contentOffset
         scrollView.frame = view.bounds
         
         guard resetAfterLayout else {
-            scrollView.contentOffset = oldOffset
+            scrollView.contentOffset = self.oldOffset
             return
         }
         scrollView.contentInset = .zero
