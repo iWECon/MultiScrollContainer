@@ -15,7 +15,7 @@ let package = Package(
             targets: ["MultiScrollContainer"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/iWECon/SegmentedController", from: "1.0.0")
+        .package(url: "https://github.com/iWECon/SegmentedController", from: "2.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
